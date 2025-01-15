@@ -18,7 +18,7 @@ Today's social media landscape has failed to deliver on many of its initial prom
 
 ## Technologies
 
-- **HTML:** Uses twi HTML pages: One for authentication and one for users to find writers, explore articles, and chat.
+- **HTML:** Uses two HTML pages: One for authentication and one for users to find writers, explore articles, and chat.
 - **CSS:** Application and styling that is pleasant on different devices and screen resolutions. The theme should invite etiquette.
 - **Javascript:** Provides login, displays writers, and displays article choices all by communicating with the backend.
 - **React:** Used for a thoughtful routing schema designed around component views on a single page.
