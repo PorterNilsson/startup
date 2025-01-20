@@ -115,3 +115,70 @@ Three Phases
         ```
         
 - Javascript follows the ECMAScript standard
+
+## Technology Stack
+
+- All technologies that you layer to create your application (usually ending with a web framework at the top)
+- Our Stack: React > Caddy > AWS > Node.js > MongoDB
+
+## The Internet
+
+- A network of computers connected by various means (wires, wifi, etc)
+- Each device must have an IP which is resolved by a DNS server
+- "Once you have the IP address, you connect to the device it represents by first asking for a connection route to the device. A connection route consists of many hops across the network until the destination is dynamically discovered and the connection established. With the connection the transport and application layers start exchanging data."
+- Use `traceroute` command line utility to determine hops taken to establish connection dynamically
+- TCP/IP Model
+    - | Layer | Example | Purpose |
+        | --- | --- | --- |
+        | Application | HTTPS | Functionality like web browsing |
+        | Transport | TCP | Moving connection information packets |
+        | Internet | IP  | Establishing connections |
+        | Link | Fiber, hardware | Physical connections |
+        
+
+## AWS EC2
+
+- Server Address: `http://34.233.99.1/`
+- SSH Command: `ssh -i aws-porter-cs260-base.pem ubuntu@34.233.99.1`
+    - Make sure working directory is the same as the .pem file
+- Overview of what we did
+    - Created an EC2 instance (t2.micro) and expose it to HTTP, HTTPS, and SSH ports
+        - Used a pre-made image with ubuntu, caddy, etc
+    - Created an Elastic IP and then associated it with our EC2 instance
+    - SSH-ed into the server to test it with above command
+        - \-i flag is used to signify private key should be used
+        - chmod 600 was required (allow owner read, write, execute only) to use the key
+
+## Domain Names
+
+- Domain Name Hierarchy = `subdomain1.subdomain2.secondary.topLevelDomain`
+- Use `whois example.com` to figure out information about who owns a domain, etc.
+- Authoritative name servers do the vast majority of this work (only a few exist)
+-  Record Types
+    - A: Maps a domain straight to an IP
+    - CNAME: Maps a domain to another domain
+- You can set a time to live (TTL) on your domain for caching instructions
+
+## Amazon Web Services - Route 53
+
+- "The name server (NS) record contains the names of the authoritative name servers that authorize you to place DNS records in this DNS server. Those same authoritative name servers are listed with the registrar that you leased your domain name from. That way the authoritative name server can verify that the DNS records and the DNS registration match and are authorized to represent the domain name when defining DNS records."
+- "The start of authority (SOA) record provides contact information about the owner of this domain name."
+- What we did (Added two routes)
+    - One route was normal and just covered the root domain (just pasted the IP in the value section)
+    - One route was a wildcard (\*) and made it so all subdomains (unless explicitly defined) point to the root
+
+## Caddy
+
+- Reverse proxy / gateway
+- Encrypts with LetsEncrypt and acts as an HTTP Server
+- CaddyFile: stores location of static html pages
+
+## HTTPS, TLS, and web certificates
+
+- HTTPS works by the underlying transport protocol called TLS
+- LetsEncrypt essentially gives out open source certificates
+    - ACME Protocol
+- What we did:
+    - Edited Caddyfile to have the domain serve up the root
+    - Edited Caddyfile with two subdomains which has it act as a reverse proxy to two different apps
+    - Restarted Caddy
