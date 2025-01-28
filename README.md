@@ -29,3 +29,14 @@ Today's social media landscape has failed to deliver on many of its initial prom
     - Retrieving a random proverb
 - **DB/Login:** Store base users and writers in the database. No features of the main site are available until authenticated. Registers new users and writers. Stores articles.
 - **WebSocket:** Users' live chat messages are broadcast to all other users in the chat room.
+
+## HTML Deliverable
+
+For this deliverable I built out the structure, main navigational elements, and placeholder logic for my application using HTML.
+
+- [x] **HTML pages** \- Four HTML pages corresponding to a login screen, home screen, writer discovery screen, and writer information screen.
+- [x] **Links** - The header contains links to the login page (logout) and home page. Additionally, all links work with the exception of the buttons for "article" and "chat" as this will be implemented using JavaScript.
+- [x] **Text** \- Included placeholder text for articles, biographical information for writers, and chat messages.
+- [x] **Images** - Included one image per article and one per writer. Additionally, the website icon is updated to reflect the brand.
+- [x] **DB/Login** \- The database will need to be queried to validate current users, and it will need to be written to create new users. The "Username" text on the header of each page will be replaced dynamically with the user's actual username. Additionally, the location of articles and images created by writers will need to be referenced in the database. Finally, the user has a unique follower list that will be stored in and retrieved from the database. The live chat will not be persistent beyond the UI. Writers will have a persistent and permanent blacklist that will be stored and enforced (clicking the user's name in chat).
+- [x] **WebSocket** - Chat on the home screen will be a realtime feed.
