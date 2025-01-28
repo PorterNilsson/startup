@@ -6,4 +6,4 @@
 
 [Week 2](notes/week_2.md)
 
-test
+[Week 3](notes/week_3.md)
