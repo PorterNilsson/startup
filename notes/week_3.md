@@ -181,3 +181,153 @@
     - scores.html
     - about.html
 - `./deployFiles.sh -k <yourpemkey> -h <yourdomain> -s simon`
+
+## CSS Introduction
+
+- Functionally, CSS is primarily concerned with defining `rulesets`, or simply `rules`. A rule is comprised of a `selector` that selects the elements to apply the rule to, and one or more `declarations` that represent the `property` to style with the given `property value`.
+- 3 Ways to Use CSS
+    - ```HTML
+        <p style="color:green">CSS</p>
+        ```
+        
+    - ```HTML
+        <head>
+          <style>
+            p {
+              color: green;
+            }
+          </style>
+        </head>
+        <body>
+          <p>CSS</p>
+        </body>
+        ```
+        
+    - ```HTML
+        <link rel="stylesheet" href="styles.css" />
+        ```
+        
+        - Must appear in the head
+- The "lowest" or most specific level of style is the one that is ultimately applied
+    - Change all `box-sizing` to `border-box`
+
+## Selectors
+
+- You can select by element name
+    - ```CSS
+        body {
+          font-family: sans-serif;
+        }
+        ```
+        
+- | Combinator | Meaning | Example | Description |
+    | --- | --- | --- | --- |
+    | Descendant | A list of descendants | `body section` | Any section that is a descendant of a body |
+    | Child | A list of direct children | `section > p` | Any p that is a direct child of a section |
+    | General sibling | A list of siblings | `div ~ p` | Any p that has a div sibling |
+    | Adjacent sibling | A list of adjacent sibling | `div + p` | Any p that has an adjacent div sibling |
+    
+- Use a period before a class name to select all elements with that class. Optionally, place the element type before the period such as "p.className" to select only those type of elements with that class.
+- Signify ID with "#"
+- You can use attribute selectors as well with "\[\]" syntax
+- Pseudo-selectors are invoked with ":" syntax to specify behavior that occurs as a result of interaction with the element in some manner
+
+## Declarations
+
+| Property | Value | Example | Discussion |
+| --- | --- | --- | --- |
+| background-color | color | `red` | Fill the background color |
+| border | color width style | `#fad solid medium` | Sets the border using shorthand where any or all of the values may be provided |
+| border-radius | unit | `50%` | The size of the border radius |
+| box-shadow | x-offset y-offset blu-radius color | `2px 2px 2px gray` | Creates a shadow |
+| columns | number | `3` | Number of textual columns |
+| column-rule | color width style | `solid thin black` | Sets the border used between columns using border shorthand |
+| color | color | `rgb(128, 0, 0)` | Sets the text color |
+| cursor | type | `grab` | Sets the cursor to display when hovering over the element |
+| display | type | `none` | Defines how to display the element and its children |
+| filter | filter-function | `grayscale(30%)` | Applies a visual filter |
+| float | direction | `right` | Places the element to the left or right in the flow |
+| flex |     |     | Flex layout. Used for responsive design |
+| font | family size style | `Arial 1.2em bold` | Defines the text font using shorthand |
+| grid |     |     | Grid layout. Used for responsive design |
+| height | unit | `.25em` | Sets the height of the box |
+| margin | unit | `5px 5px 0 0` | Sets the margin spacing |
+| max-\[width/height\] | unit | `20%` | Restricts the width or height to no more than the unit |
+| min-\[width/height\] | unit | `10vh` | Restricts the width or height to no less than the unit |
+| opacity | number | `.9` | Sets how opaque the element is |
+| overflow | \[visible/hidden/scroll/auto\] | `scroll` | Defines what happens when the content does not fix in its box |
+| position | \[static/relative/absolute/sticky\] | `absolute` | Defines how the element is positioned in the document |
+| padding | unit | `1em 2em` | Sets the padding spacing |
+| left | unit | `10rem` | The horizontal value of a positioned element |
+| text-align | \[start/end/center/justify\] | `end` | Defines how the text is aligned in the element |
+| top | unit | `50px` | The vertical value of a positioned element |
+| transform | transform-function | `rotate(0.5turn)` | Applies a transformation to the element |
+| width | unit | `25vmin` | Sets the width of the box |
+| z-index | number | `100` | Controls the positioning of the element on the z axis |
+
+| Unit | Description |
+| --- | --- |
+| px  | The number of pixels |
+| pt  | The number of points (1/72 of an inch) |
+| in  | The number of inches |
+| cm  | The number of centimeters |
+| %   | A percentage of the parent element |
+| em  | A multiplier of the width of the letter `m` in the parent's font |
+| rem | A multiplier of the width of the letter `m` in the root's font |
+| ex  | A multiplier of the height of the element's font |
+| vw  | A percentage of the viewport's width |
+| vh  | A percentage of the viewport's height |
+| vmin | A percentage of the viewport's smaller dimension |
+| vmax | A percentage of the viewport's larger dimension |
+
+| Method | Example | Description |
+| --- | --- | --- |
+| keyword | `red` | A set of predefined colors (e.g. white, cornflowerblue, darkslateblue) |
+| RGB hex | `#00FFAA22` or `#0FA2` | Red, green, and blue as a hexadecimal number, with an optional alpha opacity |
+| RGB function | `rgb(128, 255, 128, 0.5)` | Red, green, and blue as a percentage or number between 0 and 255, with an optional alpha opacity percentage |
+| HSL | `hsl(180, 30%, 90%, 0.5)` | Hue, saturation, and light, with an optional opacity percentage. Hue is the position on the 365 degree color wheel (red is 0 and 255). Saturation is how gray the color is, and light is how bright the color is. |
+
+## Fonts
+
+- Serif (detailed), San Serif (Plain), Fixed (Same size), and Symbol (Emoji, arrow, etc)
+- ```CSS
+    @font-face {
+      font-family: 'Quicksand';
+      src: url('https://cs260.click/fonts/quicksand.ttf');
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Rubik Microbe&display=swap');
+    ```
+    
+    - Two ways to use fonts (locally stored or fetched)
+
+### Animations
+
+- ```CSS
+    p {
+      text-align: center;
+      font-size: 20vh;
+    
+      animation-name: demo;
+      animation-duration: 3s;
+    }
+    
+    @keyframes demo {
+      from {
+        font-size: 0vh;
+      }
+    
+      95% {
+        font-size: 21vh;
+      }
+    
+      to {
+        font-size: 20vh;
+      }
+    }
+    ```
+    
+
+## Debugging CSS
+
+- Go to the styles section and scroll down to see the CSS box model. You can edit the CSS from right inside the browser.
