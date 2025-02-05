@@ -46,20 +46,37 @@ h1 {
     color: white;
 }
 
-.proverb {
-    background-color: lightgray;
-    margin-top: 1em;
-    border-radius: 3em;
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
 main {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     font-family: sans-serif;
+}
+
+.writer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    color: rgb(231, 193, 65);
+    border-bottom: solid;
+    border-color: black;
+    border-width: 4px;
+}
+
+img {
+    width: 50%;
+    height: auto;
+    margin-bottom: 1em;
+}
+
+.writer p {
+    margin: 1em;
 }
 
 footer {
