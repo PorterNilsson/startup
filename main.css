@@ -14,6 +14,7 @@ body {
 header {
     flex: 0 4em;
     background: rgb(231, 193, 65);
+    justify-content: space-between;
 }
 
 h1 {
@@ -106,4 +107,4 @@ footer {
     main {
       flex: 1 100vh;
     }
-  }
+}
