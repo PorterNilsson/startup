@@ -40,3 +40,15 @@ For this deliverable I built out the structure, main navigational elements, and 
 - [x] **Images** - Included one image per article and one per writer. Additionally, the website icon is updated to reflect the brand.
 - [x] **DB/Login** \- The database will need to be queried to validate current users, and it will need to be written to create new users. The "Username" text on the header of each page will be replaced dynamically with the user's actual username. Additionally, the location of articles and images created by writers will need to be referenced in the database. Finally, the user has a unique follower list that will be stored in and retrieved from the database. The live chat will not be persistent beyond the UI. Writers will have a persistent and permanent blacklist that will be stored and enforced (clicking the user's name in chat).
 - [x] **WebSocket** - Chat on the home screen will be a realtime feed.
+
+
+## CSS Deliverable
+
+For this deliverable I properly styled the application into its final appearance.
+
+- [x] **Header, footer, and main content body** - I created a neat header which has styled buttons for navigation across pages and an aesthetically pleasing brand image. The footer is styled similarly. The main body reuses many similar color themes and element styling across the pages.
+- [x] **Navigation elements** - Styled navigation elements include: Buttons in the header to reach the home page or log out, forms and buttons to log in, buttons relating to writers on the home page, a button redirecting the user to the discover page. All of these are styled appropriately with the overall look and feel of the page.
+- [x] **Responsive to window resizing** - My application is designed to forgo displaying the header and footer on shorter viewports throughout the app. Additionally, the home screen rearranges the flexbox to move the writers list below the blog list on narrow screens. Text sizes throughout are relative to device font size, and width is based on screen or parent element percentages.
+- [x] **Application elements** - Elements have good margins and padding where needed. They are arranged in an orderly way which separates their functionality visually. Within many organizing elements, care is taken to center the text or likewise enclosed elements.
+- [x] **Application text content** - Fonts are consistent throughout (sans-serif) for readability. The exception to this is the header and footer which employ a serif font to suggest a aura of luxury to the app.
+- [x] **Application images** - Many application images throughout. Images on the writers page (click a "writer you follow") are resized when the device screen reaches a certain narrow threshold to maintain an organized look (obviously this necessitated changes to the flexbox as well).
