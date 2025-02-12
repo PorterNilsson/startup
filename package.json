@@ -1,0 +1,25 @@
+{
+  "name": "startup",
+  "version": "1.0.0",
+  "description": "Today's social media landscape has failed to deliver on many of its initial promises. What once seemed like an endless horizon of free expression and exchange of ideas has become a wasteland of brain rot where maintaining the viewer's attention span is the primary objective. Devotee is a new platform designed to allow the brightest and most brilliant among us to procure a following of like-minded critical-thinkers. Devotee is a blog site with a twist: writers can chat over live text with their audience—and audience members with each other—in a Socratic dialogue setting. Anonymity, ideology, and character-limited shouting matches are a thing of the past as Devotee curates an audience burned out with traditional forms of online interaction and discourse.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PorterNilsson/startup.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PorterNilsson/startup/issues"
+  },
+  "homepage": "https://github.com/PorterNilsson/startup#readme",
+  "devDependencies": {
+    "vite": "^6.1.0"
+  }
+}
