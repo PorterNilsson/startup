@@ -9,3 +9,5 @@
 [Week 3](notes/week_3.md)
 
 [Week 4](notes/week_4.md)
+
+[Week 5](notes/week_5.md)
