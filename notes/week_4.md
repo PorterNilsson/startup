@@ -194,4 +194,144 @@
 - ```HTML
     <link rel="stylesheet" href="main.css" />
     ```
+
+## JavaScript Introduction
+
+| Year | Version | Features |
+| --- | --- | --- |
+| 1997 | ES1 | types, functions |
+| 1999 | ES3 | regex, exceptions, switch |
+| 2009 | ES5 | json, array iteration |
+| 2015 | ES6 | let/const, default params, classes, template literals, destructuring, generators, promises, modules, internationalization |
+| 2016 | ES2016 | array.includes |
+| 2017 | ES2017 | async/await |
+| 2018 | ES2018 | rest/spread, promise.finally |
+| 2019 | ES2019 | string.trim |
+| 2020 | ES2020 | ?? operator |
+
+- ```JavaScript
+        function join(a, b) {
+          return a + ' ' + b;
+        }
+        
+        console.log(join('Hello', 'world'));
+        // OUTPUT: Hello world
+    ```
     
+
+## Adding JavaScript to HTML
+
+1.  **Script block**: Directly including it in the HTML within the content of a `<script>` element
+2.  **External code**: Using the `src` attribute of the script element to reference an external JavaScript file.
+3.  **Inline event attribute**: Putting JavaScript directly inline as part of an event attribute handler.
+
+- ```HTML
+        <!-- external script -->
+        <head>
+          <script src="index.js"></script>
+        </head>
+        <body>
+          <button onclick="sayHello()">Say Hello</button>
+          <button onclick="sayGoodbye()">Say Goodbye</button>
+        
+          <!-- internal script block -->
+          <script>
+            function sayGoodbye() {
+              alert("Goodbye");
+            }
+          </script>
+        
+          <!-- inline attribute handler -->
+          <script>
+            let i = 1;
+          </script>
+          <button onclick="alert(`i = ${i++}`)">counter</button>
+        </body>
+    ```
+    
+
+## Node.js
+
+- Executes JavaScript via V8
+    
+- Has an interpreter mode on the command line like Python
+    
+- Use `npm init` when starting a new project to make package.json. Pass -y flag to accept all defaults.
+    
+- ```JSON
+        {
+          "name": "npmtest",
+          "version": "1.0.0",
+          "description": "Simple Node.js demo",
+          "main": "index.js",
+          "license": "MIT",
+          "scripts": {
+            "dev": "node index.js"
+          },
+          "dependencies": {
+            "give-me-a-joke": "^0.5.1"
+          }
+        }
+    ```
+    
+    - `node_modules` folder contains the actual source code for your dependencies, so make sure to include it in `.gitignore`
+    - `package-lock.json` can be used to rebuild the dependencies you had
+- ```JavaScript
+        const giveMeAJoke = require('give-me-a-joke');
+        giveMeAJoke.getRandomDadJoke((joke) => {
+          console.log(joke);
+        });
+    ```
+    
+    - Use `require` function/keyword to use the package.
+
+1.  Create your project directory
+2.  Initialize it for use with NPM by running `npm init -y`
+3.  Make sure `.gitignore` file contains `node_modules`
+4.  Install any desired packages with `npm install <package name here>`
+5.  Add `require('<package name here>')` to your application's JavaScript
+6.  Use the code the package provides in your JavaScript
+7.  Run your code with `node index.js`
+
+## Debugging JavaScript
+
+- ```JavaScript
+    var varCount = 20;
+    let letCount = 20;
+    
+    console.log('Initial - var: %d, let: %d', varCount, letCount);
+    
+    for (var varCount = 1; varCount < 2; varCount++) {
+      for (let letCount = 1; letCount < 2; letCount++) {
+        console.log('Loop - var: %d, let: %d', varCount, letCount);
+      }
+    }
+    
+    const h1El = document.querySelector('h1');
+    h1El.textContent = `Result - var:${varCount}, let:${letCount}`;
+    console.log('Final - var: %d, let: %d', varCount, letCount);
+    ```
+    
+- Use the source tab to set breakpoints and then step through the code
+
+## Debugging Node.js
+
+- Using express.js which has automatic middleware for several functionality elements
+- Use node to debug in VSCode
+- ```JavaScript
+    {
+      "version": "0.2.0",
+      "configurations": [
+        {
+          "type": "node",
+          "request": "launch",
+          "name": "Launch Program",
+          "skipFiles": ["<node_internals>/**"],
+          "runtimeArgs": ["--watch"],
+          "program": "${workspaceFolder}/main.js"
+        }
+      ]
+    }
+    ```
+    
+    - Use `--watch` flag to automatically detect changes to the file and reload the browser
