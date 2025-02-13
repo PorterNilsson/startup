@@ -12,9 +12,38 @@
 }
 
 header {
+    display: flex;
     flex: 0 4em;
-    background: rgb(231, 193, 65);
     justify-content: space-between;
+    background-color: rgb(231, 193, 65);
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    padding: 0.5em 0.5em;
+    color: white;
+    font-size: large;
+}
+
+nav * {
+    padding-right: 1em;
+}
+
+.nav-button {
+    all: unset;
+    display: inline-flex;
+    justify-content: center;
+    background-color: grey;
+    color: white;
+    border-radius: 3em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+h1 {
+    padding: 0.5em 0.5em;
+    color: white;
 }
 
 h1 {
