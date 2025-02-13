@@ -52,3 +52,19 @@ For this deliverable I properly styled the application into its final appearance
 - [x] **Application elements** - Elements have good margins and padding where needed. They are arranged in an orderly way which separates their functionality visually. Within many organizing elements, care is taken to center the text or likewise enclosed elements.
 - [x] **Application text content** - Fonts are consistent throughout (sans-serif) for readability. The exception to this is the header and footer which employ a serif font to suggest a aura of luxury to the app.
 - [x] **Application images** - Many application images throughout. Images on the writers page (click a "writer you follow") are resized when the device screen reaches a certain narrow threshold to maintain an organized look (obviously this necessitated changes to the flexbox as well).
+
+## React deliverable Phase 1: HTML/CSS
+
+For this deliverable I used JavaScript and React so that the application behaves as a single page application (SPA) now.
+
+- [x] **File Structure** - Reorganized the file hierarchy to support development using React. The index.html with a root element and index.jsx for the React entry point are both in the root of the project. The src folder contains the actual app component with folders for components corresponding to different traditional "pages."
+- [x] **Installing/Configuring Toolchain** - Used npm to initialize a project and track dependencies. Installed React and associated libraries for manipulating the DOM using react. Additionally, installed Vite for transpilation and bundling as well as testing during development. Additionally, I configured Vite to be the default server for `npm run dev` command.
+- [x] **Components** - Each part of the application that used to be a single page was component-ized into a jsx file. This includes the login, home, writer, and discover components. The wrapping app component for the whole thing contains what use to be part of the header.
+    - [x] **Login Component** - Login component buttons still function and take the user to the home page (the login and create new user buttons).
+    - [x] **Home Component** - The home component looks identical to the previous deliverable; the writers bring the user to the writer page, and the discover button brings the user to the discover page.
+    - [x] **Writer/Discover Components** - These are the simplest components of the entire application, and they merely show up as before.
+- [x] **Router** - Routing is used for every button which links to a new view in the main area of the page. No anchor tags are used for internal navigation. This includes links in the header. This was accomplished by wrapping the entire body of the application in a BrowserRouter element.
+- [x] **CSS** - As React imports CSS globally, I reworked some of the CSS and significantly trimmed the fat in the component CSS files to follow DRY principles and avoid naming selection conflicts across what previously were separate pages.
+- [x] **Deployment** - Added a new deployment script and deployed the application to the startup subdomain of my primary domain.
+
+&nbsp;
