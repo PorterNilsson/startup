@@ -290,3 +290,29 @@
 |     | react.svg | React logo for display in the app. |
 
 - `npm run build` when application is ready for production
+
+## Simon React P1: Routing
+
+- Commit each of these changes in my app as I complete them
+
+1.  Install and configure Vite
+2.  Reorganize the code
+3.  Convert to React Bootstrap
+4.  Enable React
+5.  Create app component
+6.  Create view components
+7.  Create the router
+8.  Convert HTML to React components
+9.  Replace deployment script
+
+| Command | Purpose |
+| --- | --- |
+| dev | Bundles a debugging version of the React application and starts Vite's hot reloading HTTP server the hosts the newly bundled application for development purposes. |
+| build | Bundles a production version of the React application and copies it to the `dist` directory. |
+| preview | Bundles a production version of the React application and starts Vite's hot reloading HTTP server. This is used to test a production version before deployment. |
+
+## Startup React P1: Routing
+
+- Essentially, you need to wrap the entire app component in a BrowserRouter tag and that replaces your navigation
+- On a high level, the app has the header and footer consistent across the app, but then the main for every page replaces the middle. It's now a single page app.
+- CSS is imported globally with react by default, so naming needs to be much more careful
