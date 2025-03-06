@@ -18,7 +18,7 @@
     align-items: center;
 }
 
-form {
+.previous-form {
     background-color: white;
     border-radius: 1em;
     display: flex;
@@ -48,4 +48,8 @@ input {
 .button {
     margin-top: 2em;
     border-radius: 3em;
+}
+
+.error {
+    color: red;
 }

@@ -8,25 +8,33 @@ import { Home } from './home/home';
 import { Writer } from './writer/writer';
 
 export default function App() {
+  const [user, setUser] = React.useState(localStorage.getItem('username') || null);
+
+  function logout() {
+    localStorage.removeItem('username');
+    localStorage.removeItem('password');
+    setUser(null);
+  }
+
   return (
   <BrowserRouter>
     <div className="body">
       <header>
         <h1>Devotee</h1>
-        <nav>
-          <span>Username</span> <span>|</span>
+        {user && <nav>
+          <span>{user}</span> <span>|</span>
           <NavLink className='nav-link' to='/'>
-            <button className="nav-button">Logout</button>
+            <button className="nav-button" onClick={logout}>Logout</button>
           </NavLink>
           <span>|</span>
           <NavLink className='nav-link' to='home'>
             <button className="nav-button">Home</button>
           </NavLink>
-        </nav>
+        </nav>}
       </header>
 
       <Routes>
-        <Route path='/' element={<Login />} exact />
+        <Route path='/' element={<Login setUser={setUser} exact />} />
         <Route path='/home' element={<Home />} />
         <Route path='/discover' element={<Discover />} />
         <Route path='/writer' element={<Writer />} />
