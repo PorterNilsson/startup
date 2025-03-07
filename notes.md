@@ -11,3 +11,5 @@
 [Week 4](notes/week_4.md)
 
 [Week 5](notes/week_5.md)
+
+[Week 6](notes/week_6.md)
