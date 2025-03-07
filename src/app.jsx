@@ -37,7 +37,7 @@ export default function App() {
         <Route path='/' element={<Login setUser={setUser} exact />} />
         <Route path='/home' element={<Home />} />
         <Route path='/discover' element={<Discover />} />
-        <Route path='/writer' element={<Writer />} />
+        <Route path='/writer/:writerName' element={<Writer />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
 
