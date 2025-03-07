@@ -4,7 +4,9 @@ import "./home.css";
 
 export function Home() {
   const [writersFollowed, setWritersFollowed] = React.useState([]);
-  const [displayPane, setDisplayPane] = React.useState('articles');
+  const [displayPane, setDisplayPane] = React.useState("");
+  const [randomScripture, setRandomScripture] = React.useState("");
+  const [recentArticlesFeed, setRecentArticlesFeed] = React.useState([]);
 
   function updateDisplayPane(pane) {
     setDisplayPane(pane);
@@ -19,6 +21,11 @@ export function Home() {
       "John Doe",
       "Sally Seashell",
     ]);
+    setDisplayPane("articles");
+    setRandomScripture(
+      "The fear of the Lord is the beginning of knowledge: but fools despise wisdom and instruction. (Proverbs 1:7)"
+    );
+    setRecentArticlesFeed(["Article 1", "Article 2", "Article 3"]);
   }, []);
 
   const writers = [];
@@ -40,115 +47,74 @@ export function Home() {
     );
   }
 
+  const articleFeed = [];
+  if (recentArticlesFeed.length) {
+    for (const [i, article] of recentArticlesFeed.entries()) {
+      articleFeed.push(
+        <div className="article">
+          <img src={`nature_${i + 1}.jpg`} width="10%" className="img" />
+          <div className="article-content">
+            <h3>{article}</h3>
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit
+              minima asperiores atque repudiandae aliquam architecto animi,
+              voluptates, quas dolore impedit odio beatae? Veniam, pariatur amet
+              eos itaque assumenda deserunt consequatur sapiente eveniet maiores
+              magni aperiam, porro natus nemo, officiis earum?
+            </p>
+          </div>
+        </div>
+      );
+    }
+  } else {
+    articleFeed.push(
+      <p>No recent articles.</p>
+    )
+  }
+
   return (
     <main>
       <div className="proverb">
-        <p>Random Proverb Placeholder</p>
+        <p>{randomScripture}</p>
       </div>
 
       <nav className="main-selection">
-        <button onClick={() => updateDisplayPane('articles')}>Articles</button>
+        <button onClick={() => updateDisplayPane("articles")}>Articles</button>
         <span> | </span>
-        <button onClick={() => updateDisplayPane('chat')}>Chat</button>
+        <button onClick={() => updateDisplayPane("chat")}>Chat</button>
       </nav>
 
       <div className="main-content">
-
-        {displayPane === 'articles' && <div className="articles">
-          <div className="article">
-            <img src="nature_1.jpg" width="10%" className="img" />
-            <div className="article-content">
-              <h3>Lorem, ipsum.</h3>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit
-                minima asperiores atque repudiandae aliquam architecto animi,
-                voluptates, quas dolore impedit odio beatae? Veniam, pariatur
-                amet eos itaque assumenda deserunt consequatur sapiente eveniet
-                maiores magni aperiam, porro natus nemo, officiis earum?
-              </p>
-            </div>
+        {displayPane === "articles" && (
+          <div className="articles">
+            {articleFeed}
           </div>
+        )}
 
-          <div>
-            <div className="article">
-              <img src="nature_2.jpg" width="10%" className="img" />
-              <div className="article-content">
-                <h3>Lorem, ipsum dolor.</h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Eius, cum eos recusandae aliquid, quibusdam mollitia in quis
-                  voluptatum excepturi dicta esse, quo inventore! Officia
-                  assumenda sed aspernatur dignissimos delectus libero, earum
-                  reiciendis expedita atque quis non ullam nemo possimus totam?
-                </p>
-              </div>
-            </div>
+        {displayPane === "chat" && (
+          <div className="chat">
+            <h2>Chat</h2>
+            <ul>
+              <li>
+                <h4>Placeholder Timestamp | Placeholder User</h4>
+                <p>Placeholder Chat Message</p>
+              </li>
+              <li>
+                <h4>Placeholder Timestamp | Placeholder User</h4>
+                <p>Placeholder Chat Message</p>
+              </li>
+              <li>
+                <h4>Placeholder Timestamp | Placeholder User</h4>
+                <p>Placeholder Chat Message</p>
+              </li>
+              <li>
+                <h4>Placeholder Timestamp | Placeholder User</h4>
+                <p>Placeholder Chat Message</p>
+              </li>
+            </ul>
+            <input type="text" placeholder="chat" />
           </div>
-
-          <div>
-            <div className="article">
-              <img src="nature_3.webp" width="10%" className="img" />
-              <div className="article-content">
-                <h3>Lorem ipsum dolor sit.</h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Commodi vel, corrupti sapiente odio assumenda iusto eum
-                  repellendus! Deleniti cum debitis numquam exercitationem quam
-                  modi. Harum, placeat nesciunt! Velit, repudiandae. Et
-                  distinctio maxime velit consectetur, illo perspiciatis
-                  veritatis laborum quod nisi dolore. Numquam iure et saepe,
-                  corporis repudiandae laboriosam illo officia quasi
-                  reprehenderit necessitatibus veniam est aliquam commodi?
-                  Consectetur, reiciendis vero?
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div className="article">
-              <img src="nature_4.jpeg" width="10%" className="img" />
-              <div className="article-content">
-                <h3>Lorem ipsum dolor sit amet.</h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Deleniti tempora esse, aut et quas libero labore odio sequi
-                  blanditiis asperiores aspernatur vero non, sit voluptate ab
-                  delectus reiciendis veritatis? Voluptas optio voluptates
-                  perferendis quis! Perspiciatis nihil, illum aliquid nostrum,
-                  delectus quo quam atque, exercitationem mollitia obcaecati
-                  voluptatem culpa consequatur ab? Similique beatae laudantium
-                  iusto ipsam doloremque veritatis facilis soluta doloribus
-                  necessitatibus accusantium. Enim ullam nulla molestias neque
-                  corporis alias ab.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>}
-
-        {displayPane === 'chat' && <div className="chat">
-          <h2>Chat</h2>
-          <ul>
-            <li>
-              <h4>Placeholder Timestamp | Placeholder User</h4>
-              <p>Placeholder Chat Message</p>
-            </li>
-            <li>
-              <h4>Placeholder Timestamp | Placeholder User</h4>
-              <p>Placeholder Chat Message</p>
-            </li>
-            <li>
-              <h4>Placeholder Timestamp | Placeholder User</h4>
-              <p>Placeholder Chat Message</p>
-            </li>
-            <li>
-              <h4>Placeholder Timestamp | Placeholder User</h4>
-              <p>Placeholder Chat Message</p>
-            </li>
-          </ul>
-          <input type="text" placeholder="chat" />
-        </div>}
+        )}
 
         <div className="writers">
           <h2>Writers You Follow</h2>
