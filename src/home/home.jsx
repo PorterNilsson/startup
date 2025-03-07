@@ -14,13 +14,8 @@ export function Home() {
 
   React.useEffect(() => {
     // Should be a service call to database to get the writers the user follows
-    setWritersFollowed([
-      "Joe Schmoe",
-      "Jane Doe",
-      "Peter Piper",
-      "John Doe",
-      "Sally Seashell",
-    ]);
+    setWritersFollowed(JSON.parse(localStorage.getItem("writersFollowed")) || [])
+
     setDisplayPane("articles");
     setRandomScripture(
       "The fear of the Lord is the beginning of knowledge: but fools despise wisdom and instruction. (Proverbs 1:7)"

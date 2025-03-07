@@ -13,6 +13,7 @@ export default function App() {
   function logout() {
     localStorage.removeItem('username');
     localStorage.removeItem('password');
+    localStorage.removeItem('writersFollowed')
     setUser(null);
   }
 
