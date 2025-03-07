@@ -104,16 +104,24 @@ main {
 }
 
 .chat {
+    display: flex;
+    flex-direction: column;
     border-color: lightgray;
     border-style: solid;
     margin-right: auto;
     padding: 1em;
     margin-bottom: 1em;
     width: 80vw;
+    height: 60vh;
 }
 
 .chat li {
     list-style: none;
+    margin-top: 1em;
+}
+
+.chat-box {
+    margin-top: auto;
 }
 
 @media (max-width: 600px) {

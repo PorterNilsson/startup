@@ -7,6 +7,8 @@ export function Home() {
   const [displayPane, setDisplayPane] = React.useState("");
   const [randomScripture, setRandomScripture] = React.useState("");
   const [recentArticlesFeed, setRecentArticlesFeed] = React.useState([]);
+  const [chatFeed, setChatFeed] = React.useState([]);
+  const [userMessage, setUserMessage] = React.useState('');
 
   function updateDisplayPane(pane) {
     setDisplayPane(pane);
@@ -14,13 +16,39 @@ export function Home() {
 
   React.useEffect(() => {
     // Should be a service call to database to get the writers the user follows
-    setWritersFollowed(JSON.parse(localStorage.getItem("writersFollowed")) || [])
+    setWritersFollowed(
+      JSON.parse(localStorage.getItem("writersFollowed")) || []
+    );
 
     setDisplayPane("articles");
     setRandomScripture(
       "The fear of the Lord is the beginning of knowledge: but fools despise wisdom and instruction. (Proverbs 1:7)"
     );
     setRecentArticlesFeed(["Article 1", "Article 2", "Article 3"]);
+
+    setInterval(() => {
+      const names = ["jennifer", "gwen", "burt", "patrick", "harris"];
+      const randomName = names[Math.floor(Math.random() * names.length)];
+      const randomMessage =
+        "Random Message: " + (Math.floor(Math.random() * 100) + 1);
+
+      const newMessage = (
+        <li key={Date.now()}>
+          <h4>
+            {new Date().toLocaleTimeString()} | {randomName}
+          </h4>
+          <p>{randomMessage}</p>
+        </li>
+      );
+
+      setChatFeed((prevFeed) => {
+        const updatedFeed = [...prevFeed, newMessage];
+        if (updatedFeed.length > 6) {
+          updatedFeed.shift();
+        }
+        return updatedFeed;
+      });
+    }, 5000);
   }, []);
 
   const writers = [];
@@ -62,9 +90,28 @@ export function Home() {
       );
     }
   } else {
-    articleFeed.push(
-      <p>No recent articles.</p>
-    )
+    articleFeed.push(<p>No recent articles.</p>);
+  }
+
+  function checkIfEnter(e) {
+    if (e.key === 'Enter' && userMessage.trim()) {
+      const message = (
+        <li key={Date.now()}>
+          <h4>{new Date().toLocaleTimeString()} | {localStorage.getItem('username')}</h4>
+          <p>{userMessage}</p>
+        </li>
+      );
+
+      setChatFeed((prevFeed) => {
+        const updatedFeed = [...prevFeed, message];
+        if (updatedFeed.length > 6) {
+          updatedFeed.shift();
+        }
+        return updatedFeed;
+      });
+
+      setUserMessage("");
+    }
   }
 
   return (
@@ -81,33 +128,21 @@ export function Home() {
 
       <div className="main-content">
         {displayPane === "articles" && (
-          <div className="articles">
-            {articleFeed}
-          </div>
+          <div className="articles">{articleFeed}</div>
         )}
 
         {displayPane === "chat" && (
           <div className="chat">
             <h2>Chat</h2>
-            <ul>
-              <li>
-                <h4>Placeholder Timestamp | Placeholder User</h4>
-                <p>Placeholder Chat Message</p>
-              </li>
-              <li>
-                <h4>Placeholder Timestamp | Placeholder User</h4>
-                <p>Placeholder Chat Message</p>
-              </li>
-              <li>
-                <h4>Placeholder Timestamp | Placeholder User</h4>
-                <p>Placeholder Chat Message</p>
-              </li>
-              <li>
-                <h4>Placeholder Timestamp | Placeholder User</h4>
-                <p>Placeholder Chat Message</p>
-              </li>
-            </ul>
-            <input type="text" placeholder="chat" />
+            <ul>{chatFeed}</ul>
+            <input
+              type="text"
+              placeholder="chat"
+              className="chat-box"
+              value={userMessage}
+              onChange={(e) => setUserMessage(e.target.value)}
+              onKeyDown={checkIfEnter}
+            />
           </div>
         )}
 
