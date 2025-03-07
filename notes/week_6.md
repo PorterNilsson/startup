@@ -579,3 +579,68 @@
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<Clicker />);
     ```
+
+
+## Reactivity
+
+- "React enables reactivity with three major pieces of a React component: `props`, `state`, and `render`."
+- "React keeps a **table** of `state` values for every component. React records requested state in the table whenever a `updateState` method is called. Then periodically, React will rerender every component that has had a change since the last render occurred."
+
+## Simon React P2
+
+- ```JavaScript
+      export function About(props) {
+        const [imageUrl, setImageUrl] = React.useState('');
+        const [quote, setQuote] = React.useState('Loading...');
+        const [quoteAuthor, setQuoteAuthor] = React.useState('unknown');
+      
+        React.useEffect(() => {
+          setImageUrl(`placeholder.jpg`);
+          setQuote('Show me the code');
+          setQuoteAuthor('Linus Torvalds');
+        }, []);
+      
+        return (
+          <main className='container-fluid bg-secondary text-center'>
+            <div>
+              <div id='picture' className='picture-box'>
+                <img src={imageUrl} alt='random image' />
+              </div>
+      
+              <p>...</p>
+      
+              <div className='quote-box bg-light text-dark'>
+                <p className='quote'>{quote}</p>
+                <p className='author'>{quoteAuthor}</p>
+              </div>
+            </div>
+          </main>
+        );
+      }
+    ```
+    
+    - This gives flexibility when we add fetch requests into the mx
+
+## Startup React Phase 2: Reactivity
+
+- ```JavaScript
+    // This will be replaced with data service calls
+    localStorage.setItem('userName', 'Tom');
+    const userName = localStorage.getItem('userName');
+    ```
+    
+- ```JavaScript
+    function getWeather() {
+      // This will be replaced with a 3rd party service call
+      return { date: '2026-05-20', outlook: 'fair' };
+    }
+    const weather = getWeather();
+    ```
+    
+- ```JavaScript
+    setInterval(() => {
+      // This will be replaced with WebSocket messages
+      const userName = `User-${Math.floor(Math.random() * 100)}`;
+      displayPeerMessage({ msg: 'Hello', from: userName });
+    }, 1000);
+    ```
