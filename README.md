@@ -14,7 +14,7 @@ Today's social media landscape has failed to deliver on many of its initial prom
 
 ## Design
 
-![Mock](/assets/images/Mockup.png)
+![Mock](/public/Mockup.png)
 
 ## Technologies
 
