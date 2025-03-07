@@ -127,37 +127,37 @@ export function Home() {
           </div>
         </div>}
 
+        {displayPane === 'chat' && <div className="chat">
+          <h2>Chat</h2>
+          <ul>
+            <li>
+              <h4>Placeholder Timestamp | Placeholder User</h4>
+              <p>Placeholder Chat Message</p>
+            </li>
+            <li>
+              <h4>Placeholder Timestamp | Placeholder User</h4>
+              <p>Placeholder Chat Message</p>
+            </li>
+            <li>
+              <h4>Placeholder Timestamp | Placeholder User</h4>
+              <p>Placeholder Chat Message</p>
+            </li>
+            <li>
+              <h4>Placeholder Timestamp | Placeholder User</h4>
+              <p>Placeholder Chat Message</p>
+            </li>
+          </ul>
+          <input type="text" placeholder="chat" />
+        </div>}
+
         <div className="writers">
           <h2>Writers You Follow</h2>
-          <ul>{writers}</ul>
+          <ul className="following">{writers}</ul>
           <NavLink className="nav-link discover" to="/discover">
             Discover
           </NavLink>
         </div>
       </div>
-
-      {displayPane === 'chat' && <div className="chat">
-        <h2>Chat</h2>
-        <ul>
-          <li>
-            <h4>Placeholder Timestamp | Placeholder User</h4>
-            <p>Placeholder Chat Message</p>
-          </li>
-          <li>
-            <h4>Placeholder Timestamp | Placeholder User</h4>
-            <p>Placeholder Chat Message</p>
-          </li>
-          <li>
-            <h4>Placeholder Timestamp | Placeholder User</h4>
-            <p>Placeholder Chat Message</p>
-          </li>
-          <li>
-            <h4>Placeholder Timestamp | Placeholder User</h4>
-            <p>Placeholder Chat Message</p>
-          </li>
-        </ul>
-        <input type="text" placeholder="chat" />
-      </div>}
     </main>
   );
 }
