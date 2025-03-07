@@ -6,8 +6,8 @@ export function Home() {
   const [writersFollowed, setWritersFollowed] = React.useState([]);
   const [displayPane, setDisplayPane] = React.useState('articles');
 
-  function updateDisplayPane() {
-    
+  function updateDisplayPane(pane) {
+    setDisplayPane(pane);
   }
 
   React.useEffect(() => {
@@ -47,13 +47,14 @@ export function Home() {
       </div>
 
       <nav className="main-selection">
-        <button onClick={updateDisplayPane}>Articles</button>
+        <button onClick={() => updateDisplayPane('articles')}>Articles</button>
         <span> | </span>
-        <button onClick={updateDisplayPane}>Chat</button>
+        <button onClick={() => updateDisplayPane('chat')}>Chat</button>
       </nav>
 
       <div className="main-content">
-        <div className="articles">
+
+        {displayPane === 'articles' && <div className="articles">
           <div className="article">
             <img src="nature_1.jpg" width="10%" className="img" />
             <div className="article-content">
@@ -124,7 +125,7 @@ export function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </div>}
 
         <div className="writers">
           <h2>Writers You Follow</h2>
@@ -135,7 +136,7 @@ export function Home() {
         </div>
       </div>
 
-      <div className="chat">
+      {displayPane === 'chat' && <div className="chat">
         <h2>Chat</h2>
         <ul>
           <li>
@@ -156,7 +157,7 @@ export function Home() {
           </li>
         </ul>
         <input type="text" placeholder="chat" />
-      </div>
+      </div>}
     </main>
   );
 }
