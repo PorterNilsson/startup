@@ -4,6 +4,7 @@ export function Articles() {
   const [recentArticlesFeed, setRecentArticlesFeed] = React.useState([]);
 
   React.useEffect(() => {
+    // Should be a service call to database to get the recent articles
     setRecentArticlesFeed(["Article 1", "Article 2", "Article 3"]);
   }, []);
 

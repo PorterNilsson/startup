@@ -67,4 +67,17 @@ For this deliverable I used JavaScript and React so that the application behaves
 - [x] **CSS** - As React imports CSS globally, I reworked some of the CSS and significantly trimmed the fat in the component CSS files to follow DRY principles and avoid naming selection conflicts across what previously were separate pages.
 - [x] **Deployment** - Added a new deployment script and deployed the application to the startup subdomain of my primary domain.
 
-&nbsp;
+## React Phase 2: Reactivity deliverable
+
+For this deliverable I used JavaScript and React so that the application completely works for a single user. I also added placeholders for future technology.
+
+- [x] **All functionality implemented or mocked out** - Details in subsequent points. 
+- [x] **Login page** - Now accepts and validates user login credentials to some extent. Currently anyone can log in, but the username is taken and displayed in subsequent pages. Additionally, an error message shows up if the fields are not filled out correctly. `localStorage` is used for this functionality.
+- [x] **Home page** - Component-ized each  part of the home page and mocked out functionality. As for the home page itself, it implements a switching display pane where the user can use buttons to switch between an article view and a chat view.  
+    - [x] **Article pane** - The article pane uses React `useEffect` and `useState` to set the recent articles. This will ultimately be a service call to the database, but for now the useState variable is used to dynamically loop and populate the article list.
+    - [x] **Chat pane** - The chat pane uses `useEffect`, `useState`, and `setInterval` to simulate webSocket functionality. Currently it sends a random message every 5 seconds. Additionally, users are able to type messages and hit enter on their keyboard to see the message displayed in the chat window.
+    - [x] **Writers followed sidebar** - The writers followed sidebar uses `useState` and `useEffect` and simulates a database call to get what writers the user follows. Currently the "users followed" is global because we are using `localStorage`, but the functionality works for a single user. (i. e. Following/Unfollowing a writer on the discover page will be reflected on the home page).
+    - [x] **Random scripture** - Modified the random proverb to be the more generalized random scripture. The text for this scripture is populated with `useState` and `useEffect` which simulate a database call.
+- [x] **Writer's pages** - The pages for individual writers have state passed to them via React's `useParam` hook to access the URL dynamically and fill in the writer's name at the top of the page. Obviously this will be accompanied by a call to the database to get the actual bio later on.
+- [x] **Discover page** - The discover page allows uses `useState` and `useEffect` to allow users to dynamically follow and unfollow writers. Currently the writers followed are stored in `localStorage`, but this will ultimately be a database query. Follow and unfollow buttons update dynamically, and the actual follow list is then reflected in the home page.
+- [x] **Routing functionality** - Page header updates dynamically with user's username and allows for logging out which deletes the user from `localStorage`. Additionally, links are hidden by default on the login page.
