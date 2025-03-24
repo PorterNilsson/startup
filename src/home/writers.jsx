@@ -7,7 +7,7 @@ export function Writers() {
 
   React.useEffect(() => {
 
-    fetch('/api/articles')
+    fetch('/api/writersFollowed')
       .then((response) => response.json())
       .then((writers) => {
         setWritersFollowed(writers);
@@ -17,6 +17,7 @@ export function Writers() {
 
   const writers = [];
   if (writersFollowed.length) {
+    console.log(writersFollowed);
     for (const [i, writer] of writersFollowed.entries()) {
       writers.push(
         <li key={i}>

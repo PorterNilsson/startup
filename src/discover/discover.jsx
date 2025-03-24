@@ -50,16 +50,16 @@ export function Discover() {
   const writers = [];
   if (allWriters.length) {
 
-    console.log("WRITERS FOLLOWED");
-    console.log(writersFollowed);
+    // console.log("WRITERS FOLLOWED");
+    // console.log(writersFollowed);
 
     for (const [i, writer] of allWriters.entries()) {
       let buttonText = 'Follow'
 
-      console.log("WRITER");
-      console.log(writer);
+      // console.log("WRITER");
+      // console.log(writer);
       if (writersFollowed.some(followedWriter => followedWriter.writer === writer.writer)) {
-        console.log("UNFOLLOW")
+        // console.log("UNFOLLOW")
         buttonText = 'Unfollow'
       }
 
