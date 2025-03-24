@@ -118,6 +118,13 @@ apiRouter.post("/followUpdate", verifyAuth, async (req, res) => {
     console.log(user_follows);
 });
 
+// GetQuote
+app.get('/api/quote', async (req, res) => {
+    const response = await fetch('https://stoic.tekloon.net/stoic-quote');
+    const data = await response.json();
+    res.json(data); // Send data back to the frontend
+  });
+
 // Default error handler
 app.use(function (err, req, res, next) {
   res.status(500).send({ type: err.name, message: err.message });

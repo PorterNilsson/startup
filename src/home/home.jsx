@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Scripture } from "./scripture";
+import { Quote } from "./quote";
 import { DisplayPane } from "./display_pane";
 
 import "./home.css";
@@ -9,7 +9,7 @@ export function Home() {
 
   return (
     <main>
-      <Scripture />
+      <Quote />
       <DisplayPane />
     </main>
   );
