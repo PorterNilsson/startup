@@ -6,16 +6,12 @@ export function Writers() {
   const [writersFollowed, setWritersFollowed] = React.useState([]);
 
   React.useEffect(() => {
-    // Should be a service call to database to get the writers the user follows
-    setWritersFollowed(
-      JSON.parse(localStorage.getItem("writersFollowed")) || []
-    );
 
-    // fetch('/api/articles')
-    //   .then((response) => response.json())
-    //   .then((articles) => {
-    //     setRecentArticlesFeed(articles);
-    //   });
+    fetch('/api/articles')
+      .then((response) => response.json())
+      .then((writers) => {
+        setWritersFollowed(writers);
+      });
 
   }, []);
 

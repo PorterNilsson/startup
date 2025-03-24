@@ -3,10 +3,7 @@ import "./discover.css";
 
 export function Discover() {
   const [allWriters, setAllWriters] = React.useState([]);
-  const [writersFollowed, setWritersFollowed] = React.useState(
-    // FIX THIS WITH A FETCH CALL
-    JSON.parse(localStorage.getItem("writersFollowed")) || []
-  );
+  const [writersFollowed, setWritersFollowed] = React.useState([]);
 
   React.useEffect(() => {
 
@@ -16,23 +13,37 @@ export function Discover() {
         setAllWriters(writers);
       });
 
+    fetch('/api/writersFollowed')
+      .then((response) => response.json())
+      .then((writersFollowed) => {
+        setWritersFollowed(writersFollowed);
+      });
+
   }, []);
 
-  function updateFollowing(writer) {
-    console.log(writer);
+  async function updateFollowing(writer) {
     if (writersFollowed.includes(writer)) {
       const updatedWriters = writersFollowed.filter((w) => w !== writer);
       setWritersFollowed(updatedWriters);
-      // REMOVE
-      localStorage.setItem("writersFollowed", JSON.stringify(updatedWriters));
+
+      await fetch('/api/followUpdate', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(updatedWriters),
+      });
+
     } else {
       const updatedWriters = [...writersFollowed, writer];
       setWritersFollowed(updatedWriters);
-      // REMOVE
-      localStorage.setItem("writersFollowed", JSON.stringify(updatedWriters));
+
+      await fetch('/api/followUpdate', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(updatedWriters),
+      });
     }
   }
-
+  
   const writers = [];
   if (allWriters.length) {
     for (const [i, writer] of allWriters.entries()) {

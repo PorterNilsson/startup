@@ -13,8 +13,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static('public'));
 
-// When implenting the database calls, I'll have to add a foreign key to make sure I select the right articles 
-// for the right writer, and the right writer for the right user, etc. The indexing tricks here are temporary.
 let users = [];
 let articles = [
     { title: "Article 1", content: "Article Content 1", image: "article_1" },
@@ -35,9 +33,7 @@ let writers = [
     { writer: "Peter Piper", bio: "Writer 4 Bio", articles: [7, 8], image: "writer_4" },
     { writer: "Sally Seashell", bio: "Writer 5 Bio", articles: [9, 10], image: "writer_5" },
 ];
-let user_follows = [
-
-];
+let user_follows = [];
 
 
 let apiRouter = express.Router();
@@ -89,7 +85,6 @@ const verifyAuth = async (req, res, next) => {
   }
 };
 
-// NEED TO ADD MORE HERE
 //GetArticles
 apiRouter.get("/articles", verifyAuth, (_req, res) => {
     res.send(articles);
@@ -101,16 +96,22 @@ apiRouter.get("/writers", verifyAuth, (_req, res) => {
 });
 
 // GetWriters Followed
-apiRouter.get("/writersFollowed", verifyAuth, (_req, res) => {
-
-    // FIX THIS
-    res.json(writersFollowed)
-})
+apiRouter.get("/writersFollowed", verifyAuth, async (_req, res) => {
+    const user = await findUser("token", req.cookies[authCookieName]);
+    if (user) {
+        const followedWriters = user_follows[user.username] || [];
+        res.send(followedWriters)
+    }
+});
 
 // SubmitFollowUpdate
-apiRouter.post("/follow", verifyAuth, (req, res) => {
-  scores = updateScores(req.body);
-  res.send(scores);
+apiRouter.post("/followUpdate", verifyAuth, async (req, res) => {
+    const user = await findUser("token", req.cookies[authCookieName]);
+    if (user) {
+        user_follows[user.username] = req.body
+        const followedWriters = user_follows[user.username] || [];
+        res.send(followedWriters);
+    }
 });
 
 // Default error handler
