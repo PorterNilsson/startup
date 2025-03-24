@@ -4,8 +4,13 @@ export function Articles() {
   const [recentArticlesFeed, setRecentArticlesFeed] = React.useState([]);
 
   React.useEffect(() => {
-    // Should be a service call to database to get the recent articles
-    setRecentArticlesFeed(["Article 1", "Article 2", "Article 3"]);
+
+    fetch('/api/articles')
+      .then((response) => response.json())
+      .then((articles) => {
+        setRecentArticlesFeed(articles);
+      });
+    
   }, []);
 
   const articleFeed = [];
@@ -15,13 +20,9 @@ export function Articles() {
         <div className="article">
           <img src={`nature_${i + 1}.jpg`} width="10%" className="img" />
           <div className="article-content">
-            <h3>{article}</h3>
+            <h3>{ article.title }</h3>
             <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit
-              minima asperiores atque repudiandae aliquam architecto animi,
-              voluptates, quas dolore impedit odio beatae? Veniam, pariatur amet
-              eos itaque assumenda deserunt consequatur sapiente eveniet maiores
-              magni aperiam, porro natus nemo, officiis earum?
+              { article.content }
             </p>
           </div>
         </div>

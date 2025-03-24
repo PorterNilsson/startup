@@ -10,6 +10,13 @@ export function Writers() {
     setWritersFollowed(
       JSON.parse(localStorage.getItem("writersFollowed")) || []
     );
+
+    // fetch('/api/articles')
+    //   .then((response) => response.json())
+    //   .then((articles) => {
+    //     setRecentArticlesFeed(articles);
+    //   });
+
   }, []);
 
   const writers = [];
