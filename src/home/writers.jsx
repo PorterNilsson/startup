@@ -24,8 +24,8 @@ export function Writers() {
     for (const [i, writer] of writersFollowed.entries()) {
       writers.push(
         <li key={i}>
-          <NavLink className="nav-link" to={`/writer/${writer}`}>
-            {writer}
+          <NavLink className="nav-link" to={`/writer/${writer.writer}`}>
+            {writer.writer}
           </NavLink>
         </li>
       );

@@ -11,10 +11,16 @@ export default function App() {
   const [user, setUser] = React.useState(localStorage.getItem('username') || null);
 
   function logout() {
-    localStorage.removeItem('username');
-    localStorage.removeItem('password');
-    localStorage.removeItem('writersFollowed')
-    setUser(null);
+    fetch(`/api/auth/logout`, {
+      method: 'delete',
+    })
+      .catch(() => {
+        // Logout failed. Assuming offline
+      })
+      .finally(() => {
+        localStorage.removeItem('userName');
+        setUser(null);
+      });
   }
 
   return (
