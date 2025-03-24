@@ -1,3 +1,4 @@
+# Week 6
 
 ## JavaScript Console
 
