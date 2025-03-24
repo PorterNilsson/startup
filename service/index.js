@@ -97,9 +97,9 @@ apiRouter.get("/writers", verifyAuth, (_req, res) => {
 
 // GetWriters Followed
 apiRouter.get("/writersFollowed", verifyAuth, async (_req, res) => {
-    const user = await findUser("token", req.cookies[authCookieName]);
+    const user = await findUser("token", _req.cookies[authCookieName]);
     if (user) {
-        const followedWriters = user_follows[user.username] || [];
+        const followedWriters = user_follows[user.email] || [];
         res.send(followedWriters)
     }
 });
@@ -108,10 +108,14 @@ apiRouter.get("/writersFollowed", verifyAuth, async (_req, res) => {
 apiRouter.post("/followUpdate", verifyAuth, async (req, res) => {
     const user = await findUser("token", req.cookies[authCookieName]);
     if (user) {
-        user_follows[user.username] = req.body
-        const followedWriters = user_follows[user.username] || [];
+        console.log("THIS IS THE USER")
+        console.log(user);
+        user_follows[user.email] = req.body;
+        const followedWriters = user_follows[user.email] || [];
         res.send(followedWriters);
     }
+    console.log("USER FOLLOWS");
+    console.log(user_follows);
 });
 
 // Default error handler

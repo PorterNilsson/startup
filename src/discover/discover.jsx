@@ -3,27 +3,30 @@ import "./discover.css";
 
 export function Discover() {
   const [allWriters, setAllWriters] = React.useState([]);
-  const [writersFollowed, setWritersFollowed] = React.useState([]);
+  const [writersFollowed, setWritersFollowed] = React.useState(
+    
+  );
 
   React.useEffect(() => {
 
-    fetch('/api/writers')
-      .then((response) => response.json())
-      .then((writers) => {
-        setAllWriters(writers);
-      });
-
+    // This has to run first as the setAllWriters call relies on the data inside
     fetch('/api/writersFollowed')
-      .then((response) => response.json())
-      .then((writersFollowed) => {
-        setWritersFollowed(writersFollowed);
-      });
+    .then((response) => response.json())
+    .then((writersFollowed) => {
+      setWritersFollowed(writersFollowed);
+      return fetch('/api/writers');
+    })
+    .then((response) => response.json())
+    .then((writersData) => {
+      setAllWriters(writersData);
+    });
 
   }, []);
 
   async function updateFollowing(writer) {
-    if (writersFollowed.includes(writer)) {
-      const updatedWriters = writersFollowed.filter((w) => w !== writer);
+
+    if (writersFollowed.some(followedWriter => followedWriter.writer === writer.writer)) {
+      const updatedWriters = writersFollowed.filter((w) => w.writer !== writer.writer);
       setWritersFollowed(updatedWriters);
 
       await fetch('/api/followUpdate', {
@@ -46,9 +49,17 @@ export function Discover() {
   
   const writers = [];
   if (allWriters.length) {
+
+    console.log("WRITERS FOLLOWED");
+    console.log(writersFollowed);
+
     for (const [i, writer] of allWriters.entries()) {
       let buttonText = 'Follow'
-      if (writersFollowed.includes(writer)) {
+
+      console.log("WRITER");
+      console.log(writer);
+      if (writersFollowed.some(followedWriter => followedWriter.writer === writer.writer)) {
+        console.log("UNFOLLOW")
         buttonText = 'Unfollow'
       }
 
