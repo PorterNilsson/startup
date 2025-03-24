@@ -6,19 +6,19 @@ export function Quote() {
 	React.useEffect(() => {
 
     // Uses the backend as a proxy because virtually all of free APIs I found had CORS disabled...
-    fetch('/api/quote')
+    fetch('https://uselessfacts.jsph.pl/api/v2/facts/random?language=en')
     .then((response) => response.json())
     .then((data) => {
       // console.log("DATA");
       // console.log(data);
-      setRandomQuote(`${data.data.quote} -${data.data.author || 'Unknown'}`);
+      setRandomQuote(`${data.text || 'Unavaliable'}`);
     });
 
 	}, [])
 
   return (
     <div className="proverb">
-      <p>Random Stoicism Quote: {randomQuote}</p>
+      <p>Random Fact: {randomQuote}</p>
     </div>
   );
 }
