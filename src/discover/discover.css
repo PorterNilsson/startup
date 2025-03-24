@@ -1,3 +1,9 @@
+.writer-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
 .writer {
     display: flex;
     flex-direction: row;

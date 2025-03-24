@@ -17,23 +17,23 @@ app.use(express.static('public'));
 // for the right writer, and the right writer for the right user, etc. The indexing tricks here are temporary.
 let users = [];
 let articles = [
-    { title: "Article 1", content: "Article Content 1" },
-    { title: "Article 2", content: "Article Content 2" },
-    { title: "Article 3", content: "Article Content 3" },
-    { title: "Article 4", content: "Article Content 4" },
-    { title: "Article 5", content: "Article Content 5" },
-    { title: "Article 6", content: "Article Content 6" },
-    { title: "Article 7", content: "Article Content 7" },
-    { title: "Article 8", content: "Article Content 8" },
-    { title: "Article 9", content: "Article Content 9" },
-    { title: "Article 10", content: "Article Content 10" }
+    { title: "Article 1", content: "Article Content 1", image: "article_1" },
+    { title: "Article 2", content: "Article Content 2", image: "article_2" },
+    { title: "Article 3", content: "Article Content 3", image: "article_3" },
+    { title: "Article 4", content: "Article Content 4", image: "article_4" },
+    { title: "Article 5", content: "Article Content 5", image: "article_5" },
+    { title: "Article 6", content: "Article Content 6", image: "article_6" },
+    { title: "Article 7", content: "Article Content 7", image: "article_7" },
+    { title: "Article 8", content: "Article Content 8", image: "article_8" },
+    { title: "Article 9", content: "Article Content 9", image: "article_9" },
+    { title: "Article 10", content: "Article Content 10", image: "article_10" }
 ];
 let writers = [
-    { writer: "Billy Bob", bio: "Writer 1 Bio", articles: [1, 2] },
-    { writer: "Joe Schmoe", bio: "Writer 2 Bio", articles: [3, 4] },
-    { writer: "Jane Doe", bio: "Writer 3 Bio", articles: [5, 6] },
-    { writer: "Peter Piper", bio: "Writer 4 Bio", articles: [7, 8] },
-    { writer: "Sally Seashell", bio: "Writer 5 Bio", articles: [9, 10] },
+    { writer: "Billy Bob", bio: "Writer 1 Bio", articles: [1, 2], image: "writer_1" },
+    { writer: "Joe Schmoe", bio: "Writer 2 Bio", articles: [3, 4], image: "writer_2" },
+    { writer: "Jane Doe", bio: "Writer 3 Bio", articles: [5, 6], image: "writer_3" },
+    { writer: "Peter Piper", bio: "Writer 4 Bio", articles: [7, 8], image: "writer_4" },
+    { writer: "Sally Seashell", bio: "Writer 5 Bio", articles: [9, 10], image: "writer_5" },
 ];
 let user_follows = [
 

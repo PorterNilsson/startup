@@ -4,6 +4,7 @@ import "./discover.css";
 export function Discover() {
   const [allWriters, setAllWriters] = React.useState([]);
   const [writersFollowed, setWritersFollowed] = React.useState(
+    // FIX THIS WITH A FETCH CALL
     JSON.parse(localStorage.getItem("writersFollowed")) || []
   );
 
@@ -22,10 +23,12 @@ export function Discover() {
     if (writersFollowed.includes(writer)) {
       const updatedWriters = writersFollowed.filter((w) => w !== writer);
       setWritersFollowed(updatedWriters);
+      // REMOVE
       localStorage.setItem("writersFollowed", JSON.stringify(updatedWriters));
     } else {
       const updatedWriters = [...writersFollowed, writer];
       setWritersFollowed(updatedWriters);
+      // REMOVE
       localStorage.setItem("writersFollowed", JSON.stringify(updatedWriters));
     }
   }
@@ -40,7 +43,7 @@ export function Discover() {
 
       writers.push(
         <div className="writer" key={i}>
-          <img src="writer1.jpg" width="30%" className="discover-img" />
+          <img src={`${writer.image}.jpg`} width="30%" className="discover-img" />
           <div className="name-bio">
             <div className="name-follow">
               <h2>{writer.writer}</h2>
@@ -61,7 +64,9 @@ export function Discover() {
 
   return (
     <main>
-      {writers}
+      <div className="writer-div" >
+        {writers}
+      </div>
     </main>
   );
 }
