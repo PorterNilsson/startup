@@ -10,6 +10,7 @@ const authCookieName = "token";
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static('public'));
 
 // When implenting the database calls, I'll have to add a foreign key to make sure I select the right articles 

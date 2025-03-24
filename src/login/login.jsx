@@ -5,7 +5,7 @@ import "./login.css";
 export function Login({ setUser }) {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState(false);
+  const [error, setError] = React.useState("");
   const navigate = useNavigate();
 
   async function loginOrCreate(endpoint) {
@@ -35,7 +35,15 @@ export function Login({ setUser }) {
     if (username !== "" && password !== "") {
       loginOrCreate('/api/auth/login');
     } else {
-      setError(true);
+      setError("You must enter a valid username and password!");
+    }
+  }
+
+  function createUser() {
+    if (username !== "" && password !== "") {
+      loginOrCreate('/api/auth/create');
+    } else {
+      setError("You must enter a valid username and password!");
     }
   }
 
@@ -70,7 +78,7 @@ export function Login({ setUser }) {
           </div>
           {error && (
             <span className="error">
-              You must enter a username and password!
+              {error}
             </span>
           )}
           <button
@@ -80,7 +88,7 @@ export function Login({ setUser }) {
           >
             Login
           </button>
-          <button type="submit" className="button" onClick={loginUser}>
+          <button type="submit" className="button" onClick={createUser}>
             Create New User
           </button>
         </div>
