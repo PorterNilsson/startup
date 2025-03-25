@@ -1,13 +1,13 @@
-const { MongoClient } = require('mongodb');
-const config = require('./dbConfig.json');
+const { MongoClient } = require("mongodb");
+const config = require("./dbConfig.json");
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
-const db = client.db('startup');
-const userCollection = db.collection('users');
-const articleCollection = db.collection('articles');
-const writerCollection = db.collection('writers');
-const userFollowsCollection = db.collection('userFollows');
+const db = client.db("startup");
+const userCollection = db.collection("users");
+const articleCollection = db.collection("articles");
+const writerCollection = db.collection("writers");
+const userFollowsCollection = db.collection("userFollows");
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -15,7 +15,9 @@ const userFollowsCollection = db.collection('userFollows');
     await db.command({ ping: 1 });
     console.log(`Connect to database`);
   } catch (ex) {
-    console.log(`Unable to connect to database with ${url} because ${ex.message}`);
+    console.log(
+      `Unable to connect to database with ${url} because ${ex.message}`
+    );
     process.exit(1);
   }
 })();
@@ -36,7 +38,6 @@ async function updateUser(user) {
   await userCollection.updateOne({ email: user.email }, { $set: user });
 }
 
-
 // async function addScore(score) {
 //   return scoreCollection.insertOne(score);
 // }
@@ -52,36 +53,45 @@ async function updateUser(user) {
 // }
 
 function getArticles() {
-    return articleCollection.find({}).toArray();
+  const result = articleCollection.find({}).toArray();
+
+  //   console.log("RESULT FROM getArticles");
+  //   console.log(result);
+
+  return result;
 }
 
 function getWriters() {
-    return writerCollection.find({}).toArray();
+  const result = writerCollection.find({}).toArray();
+
+  //   console.log("RESULT FROM getWriters");
+  //   console.log(result);
+
+  return result;
 }
 
-function getFollowedWriters(email) {
-    const result = userFollowsCollection.findOne(
-        { email: email },  // Find the document by email
-        { projection: { followedWriters: 1 } }  // Only return the followedWriters field
-    );
+async function getFollowedWriters(email) {
+  const result = await userFollowsCollection.findOne({ email: email });
 
-    console.log("RESULT FROM getFollowedWriters");
-    console.log(result);
+  //   console.log("RESULT FROM getFollowedWriters");
+  //   console.log(result);
 
-    return result;
+  const followedWriters = result?.followedWriters ?? [];
+
+  return followedWriters;
 }
 
-function updateFollowedWriters(email, followedWriters) {
-    const result = userFollowsCollection.updateOne(
-        { email: email },
-        { $set: { followedWriters: followedWriters } },
-        { upsert: true }
-    );
+async function updateFollowedWriters(email, followedWriters) {
+  const result = await userFollowsCollection.updateOne(
+    { email: email },
+    { $set: { followedWriters: followedWriters } },
+    { upsert: true }
+  );
 
-    console.log("RESULT FROM updateFollowedWriters");
-    console.log(result);
+  //   console.log("RESULT FROM updateFollowedWriters");
+  //   console.log(result);
 
-    return result;
+  return getFollowedWriters(email);
 }
 
 module.exports = {
@@ -92,5 +102,5 @@ module.exports = {
   updateFollowedWriters,
   addUser,
   getUserByToken,
-  getUser
+  getUser,
 };

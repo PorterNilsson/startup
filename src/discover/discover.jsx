@@ -3,9 +3,7 @@ import "./discover.css";
 
 export function Discover() {
   const [allWriters, setAllWriters] = React.useState([]);
-  const [writersFollowed, setWritersFollowed] = React.useState(
-    
-  );
+  const [writersFollowed, setWritersFollowed] = React.useState([]);
 
   React.useEffect(() => {
 

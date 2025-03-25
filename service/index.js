@@ -16,6 +16,9 @@ app.use(express.static("public"));
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
+// let users = [];
+// let user_follows = [];
+
 // CreateAuth a new user
 apiRouter.post("/auth/create", async (req, res) => {
   if (await findUser("email", req.body.email)) {
@@ -80,9 +83,19 @@ apiRouter.get("/writers", verifyAuth, async (_req, res) => {
 apiRouter.get("/writersFollowed", verifyAuth, async (_req, res) => {
   const user = await findUser("token", _req.cookies[authCookieName]);
   if (user) {
+    const followedWritersDB = await DB.getFollowedWriters(user.email);
+
+    console.log("followedWritersDB");
+    console.log(followedWritersDB);
+    
+    if (followedWritersDB === null) {
+      res.send([]);
+    } else {
+      res.send(followedWritersDB);
+    }
+
     // const followedWriters = user_follows[user.email] || [];
-    const followedWriters = await DB.getFollowedWriters(user.email);
-    res.send(followedWriters);
+    // res.send(followedWriters)
   }
 });
 
@@ -90,19 +103,14 @@ apiRouter.get("/writersFollowed", verifyAuth, async (_req, res) => {
 apiRouter.post("/followUpdate", verifyAuth, async (req, res) => {
   const user = await findUser("token", req.cookies[authCookieName]);
   if (user) {
-    // console.log("THIS IS THE USER");
-    // console.log(user);
 
-    // ADD DB FUNCTIONALITY
+    const result = await DB.updateFollowedWriters(user.email, req.body);
+    res.send(result);
 
     // user_follows[user.email] = req.body;
     // const followedWriters = user_follows[user.email] || [];
-
-    const result = DB.updateFollowedWriters(user.email, req.body);
-    res.send(result);
+    // res.send(followedWriters);
   }
-  // console.log("USER FOLLOWS");
-  // console.log(user_follows);
 });
 
 // Default error handler
