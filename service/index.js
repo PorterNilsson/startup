@@ -2,7 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
 const uuid = require("uuid");
-
+const DB = require("./database.js");
 const app = express();
 
 const authCookieName = "token";
@@ -11,30 +11,7 @@ const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static('public'));
-
-let users = [];
-let articles = [
-    { title: "Article 1", content: "Article Content 1", image: "article_1" },
-    { title: "Article 2", content: "Article Content 2", image: "article_2" },
-    { title: "Article 3", content: "Article Content 3", image: "article_3" },
-    { title: "Article 4", content: "Article Content 4", image: "article_4" },
-    { title: "Article 5", content: "Article Content 5", image: "article_5" },
-    { title: "Article 6", content: "Article Content 6", image: "article_6" },
-    { title: "Article 7", content: "Article Content 7", image: "article_7" },
-    { title: "Article 8", content: "Article Content 8", image: "article_8" },
-    { title: "Article 9", content: "Article Content 9", image: "article_9" },
-    { title: "Article 10", content: "Article Content 10", image: "article_10" }
-];
-let writers = [
-    { writer: "Billy Bob", bio: "Writer 1 Bio", articles: [1, 2], image: "writer_1" },
-    { writer: "Joe Schmoe", bio: "Writer 2 Bio", articles: [3, 4], image: "writer_2" },
-    { writer: "Jane Doe", bio: "Writer 3 Bio", articles: [5, 6], image: "writer_3" },
-    { writer: "Peter Piper", bio: "Writer 4 Bio", articles: [7, 8], image: "writer_4" },
-    { writer: "Sally Seashell", bio: "Writer 5 Bio", articles: [9, 10], image: "writer_5" },
-];
-let user_follows = [];
-
+app.use(express.static("public"));
 
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
@@ -57,6 +34,7 @@ apiRouter.post("/auth/login", async (req, res) => {
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.token = uuid.v4();
+      await DB.updateUser(user);
       setAuthCookie(res, user.token);
       res.send({ email: user.email });
       return;
@@ -70,6 +48,7 @@ apiRouter.delete("/auth/logout", async (req, res) => {
   const user = await findUser("token", req.cookies[authCookieName]);
   if (user) {
     delete user.token;
+    DB.updateUser(user);
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
@@ -86,36 +65,44 @@ const verifyAuth = async (req, res, next) => {
 };
 
 //GetArticles
-apiRouter.get("/articles", verifyAuth, (_req, res) => {
-    res.send(articles);
+apiRouter.get("/articles", verifyAuth, async (_req, res) => {
+  const articles = await DB.getArticles();
+  res.send(articles);
 });
 
 // GetWriters
-apiRouter.get("/writers", verifyAuth, (_req, res) => {
+apiRouter.get("/writers", verifyAuth, async (_req, res) => {
+  const writers = await DB.getWriters();
   res.send(writers);
 });
 
 // GetWriters Followed
 apiRouter.get("/writersFollowed", verifyAuth, async (_req, res) => {
-    const user = await findUser("token", _req.cookies[authCookieName]);
-    if (user) {
-        const followedWriters = user_follows[user.email] || [];
-        res.send(followedWriters)
-    }
+  const user = await findUser("token", _req.cookies[authCookieName]);
+  if (user) {
+    // const followedWriters = user_follows[user.email] || [];
+    const followedWriters = await DB.getFollowedWriters();
+    res.send(followedWriters);
+  }
 });
 
 // SubmitFollowUpdate
 apiRouter.post("/followUpdate", verifyAuth, async (req, res) => {
-    const user = await findUser("token", req.cookies[authCookieName]);
-    if (user) {
-        console.log("THIS IS THE USER")
-        console.log(user);
-        user_follows[user.email] = req.body;
-        const followedWriters = user_follows[user.email] || [];
-        res.send(followedWriters);
-    }
-    console.log("USER FOLLOWS");
-    console.log(user_follows);
+  const user = await findUser("token", req.cookies[authCookieName]);
+  if (user) {
+    // console.log("THIS IS THE USER");
+    // console.log(user);
+
+    // ADD DB FUNCTIONALITY
+
+    // user_follows[user.email] = req.body;
+    // const followedWriters = user_follows[user.email] || [];
+
+    DB.updateFollowedWriters(req.body);
+    res.send(DB.getFollowedWriters());
+  }
+  // console.log("USER FOLLOWS");
+  // console.log(user_follows);
 });
 
 // Default error handler
@@ -136,7 +123,8 @@ async function createUser(email, password) {
     password: passwordHash,
     token: uuid.v4(),
   };
-  users.push(user);
+  // users.push(user);
+  await DB.addUser(user);
 
   return user;
 }
@@ -144,7 +132,10 @@ async function createUser(email, password) {
 async function findUser(field, value) {
   if (!value) return null;
 
-  return users.find((u) => u[field] === value);
+  if (field === 'token') {
+    return DB.getUserByToken(value);
+  }
+  return DB.getUser(value);
 }
 
 // setAuthCookie in the HTTP response
