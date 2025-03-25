@@ -55,12 +55,41 @@ function getArticles() {
     return articleCollection.find({}).toArray();
 }
 
+function getWriters() {
+    return writerCollection.find({}).toArray();
+}
+
+function getFollowedWriters(email) {
+    const result = userFollowsCollection.findOne(
+        { email: email },  // Find the document by email
+        { projection: { followedWriters: 1 } }  // Only return the followedWriters field
+    );
+
+    console.log("RESULT FROM getFollowedWriters");
+    console.log(result);
+
+    return result;
+}
+
+function updateFollowedWriters(email, followedWriters) {
+    const result = userFollowsCollection.updateOne(
+        { email: email },
+        { $set: { followedWriters: followedWriters } },
+        { upsert: true }
+    );
+
+    console.log("RESULT FROM updateFollowedWriters");
+    console.log(result);
+
+    return result;
+}
+
 module.exports = {
   updateUser,
   getArticles,
-//   getWriters,
-//   getFollowedWriters,
-//   updateFollowedWriters,
+  getWriters,
+  getFollowedWriters,
+  updateFollowedWriters,
   addUser,
   getUserByToken,
   getUser

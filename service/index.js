@@ -81,7 +81,7 @@ apiRouter.get("/writersFollowed", verifyAuth, async (_req, res) => {
   const user = await findUser("token", _req.cookies[authCookieName]);
   if (user) {
     // const followedWriters = user_follows[user.email] || [];
-    const followedWriters = await DB.getFollowedWriters();
+    const followedWriters = await DB.getFollowedWriters(user.email);
     res.send(followedWriters);
   }
 });
@@ -98,8 +98,8 @@ apiRouter.post("/followUpdate", verifyAuth, async (req, res) => {
     // user_follows[user.email] = req.body;
     // const followedWriters = user_follows[user.email] || [];
 
-    DB.updateFollowedWriters(req.body);
-    res.send(DB.getFollowedWriters());
+    const result = DB.updateFollowedWriters(user.email, req.body);
+    res.send(result);
   }
   // console.log("USER FOLLOWS");
   // console.log(user_follows);
@@ -123,7 +123,6 @@ async function createUser(email, password) {
     password: passwordHash,
     token: uuid.v4(),
   };
-  // users.push(user);
   await DB.addUser(user);
 
   return user;
