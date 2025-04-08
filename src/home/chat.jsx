@@ -8,30 +8,6 @@ export function Chat() {
   const [events, setEvent] = React.useState([]);
 
   React.useEffect(() => {
-    // setInterval(() => {
-    //   const names = ["jennifer", "gwen", "burt", "patrick", "harris"];
-    //   const randomName = names[Math.floor(Math.random() * names.length)];
-    //   const randomMessage =
-    //     "Random Message: " + (Math.floor(Math.random() * 100) + 1);
-
-    //   const newMessage = (
-    //     <li key={Date.now()}>
-    //       <h4>
-    //         {new Date().toLocaleTimeString()} | {randomName}
-    //       </h4>
-    //       <p>{randomMessage}</p>
-    //     </li>
-    //   );
-
-    //   setChatFeed((prevFeed) => {
-    //     const updatedFeed = [...prevFeed, newMessage];
-    //     if (updatedFeed.length > 6) {
-    //       updatedFeed.shift();
-    //     }
-    //     return updatedFeed;
-    //   });
-    // }, 5000);
-
     ChatNotifier.addHandler(handleChatEvent);
 
     return () => {
