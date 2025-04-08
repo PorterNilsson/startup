@@ -48,4 +48,4 @@ class ChatEventNotifier {
 }
 
 const ChatNotifier = new ChatEventNotifier();
-export { ChatEvent, ChatNotifier };
+export { ChatNotifier };

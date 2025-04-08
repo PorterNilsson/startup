@@ -1,5 +1,5 @@
 import React from "react";
-import { ChatEvent, ChatNotifier } from "./chatNotifier";
+import { ChatNotifier } from "./chatNotifier";
 
 export function Chat() {
   const [chatFeed, setChatFeed] = React.useState([]);
