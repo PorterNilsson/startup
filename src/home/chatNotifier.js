@@ -1,5 +1,5 @@
 class EventMessage {
-  constructor(from, type, value) {
+  constructor(from, value) {
     this.from = from;
     this.value = value;
   }
@@ -23,7 +23,7 @@ class ChatEventNotifier {
     };
   }
 
-  broadcastEvent(from, type, value) {
+  broadcastEvent(from, value) {
     const event = new EventMessage(from, value);
     this.socket.send(JSON.stringify(event));
   }
