@@ -99,3 +99,12 @@ For this deliverable I ensured that my application data and user data was both s
 
 - [x] **Stores data in MongoDB** - MongoDB is used to store the articles and writers for the website. This data is essentially static for the purposes of development, but it needs to be in the database if this site had actual articles and writers. The users which already exist and can be authenticated are stored in the database or dynamically added upon account creation. Finally, the database stores user-specific data about what writers a given user follows. Additionally, the database stores user-specific data about what writers a given user follows. 
 - [x] **Use MongoDB to store credentials** - The users which already exist and can be authenticated are stored in the database or dynamically added upon account creation.
+
+## WebSocket deliverable
+
+For this deliverable I used webSocket to implement a realtime chat for site users on the home page.
+
+- [x] **Backend listens for WebSocket connection** - It also polls the client regularly to check on the connection.
+- [x] **Frontend makes WebSocket connection** - Implemented.
+- [x] **Data sent over WebSocket connection** - The frontend broadcasts chat messages (chat tab of the home page) to all other users currently online also looking at the chat. Additionally, it dynamically receives and updates the chat display when messages are received.
+- [x] **WebSocket data displayed** - The display is realtime and transmits the username and message which was broadcast from another client. The timestamp associated with the chat message is when the message was received.
