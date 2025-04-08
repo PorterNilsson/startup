@@ -1,5 +1,5 @@
 import React from "react";
-import { ChatEvent, ChatNotifier } from './chatNotifier';
+import { ChatEvent, ChatNotifier } from "./chatNotifier";
 
 export function Chat() {
   const [chatFeed, setChatFeed] = React.useState([]);
@@ -40,7 +40,24 @@ export function Chat() {
   }, []);
 
   function handleChatEvent(event) {
-    setEvent([...events, event]);
+    setEvent((prevEvents) => [...prevEvents, event]);
+
+    const newMessage = (
+      <li key={Date.now()}>
+        <h4>
+          {new Date().toLocaleTimeString()} | {event.from}
+        </h4>
+        <p>{event.value}</p>
+      </li>
+    );
+
+    setChatFeed((prevFeed) => {
+      const updatedFeed = [...prevFeed, newMessage];
+      if (updatedFeed.length > 6) {
+        updatedFeed.shift();
+      }
+      return updatedFeed;
+    });
   }
 
   function checkIfEnter(e) {
@@ -48,7 +65,7 @@ export function Chat() {
       const message = (
         <li key={Date.now()}>
           <h4>
-            {new Date().toLocaleTimeString()} | {" "}
+            {new Date().toLocaleTimeString()} |{" "}
             {localStorage.getItem("username")}
           </h4>
           <p>{userMessage}</p>
@@ -65,40 +82,17 @@ export function Chat() {
 
       setUserMessage("");
 
-      ChatNotifier.broadcastEvent(localStorage.getItem("username"), ChatEvent.Chat, {userMessage});
+      ChatNotifier.broadcastEvent(
+        localStorage.getItem("username"),
+        userMessage
+      );
     }
-  }
-
-  function createMessageArray() {
-    for (const [i, event] of events.entries()) {
-      let message = 'unknown';
-      if (event.type === ChatEvent.Chat) {
-
-        const newMessage = (
-          <li key={Date.now()}>
-            <h4>
-              {new Date().toLocaleTimeString()} | {event.from}
-            </h4>
-            <p>{event.value}</p>
-          </li>
-        );
-  
-        setChatFeed((prevFeed) => {
-          const updatedFeed = [...prevFeed, newMessage];
-          if (updatedFeed.length > 6) {
-            updatedFeed.shift();
-          }
-          return updatedFeed;
-        });
-      }
-    }
-    return chatFeed
   }
 
   return (
     <div className="chat">
       <h2>Chat</h2>
-      <ul>{createMessageArray()}</ul>
+      <ul>{chatFeed}</ul>
       <input
         type="text"
         placeholder="chat"
