@@ -85,9 +85,6 @@ apiRouter.get("/writersFollowed", verifyAuth, async (_req, res) => {
   const user = await findUser("token", _req.cookies[authCookieName]);
   if (user) {
     const followedWritersDB = await DB.getFollowedWriters(user.email);
-
-    console.log("followedWritersDB");
-    console.log(followedWritersDB);
     
     if (followedWritersDB === null) {
       res.send([]);
