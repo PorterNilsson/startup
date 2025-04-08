@@ -5,7 +5,7 @@ class EventMessage {
   }
 }
 
-class ChatEventNotifier {
+class ChatEventNotifier {   
   events = [];
   handlers = [];
 
